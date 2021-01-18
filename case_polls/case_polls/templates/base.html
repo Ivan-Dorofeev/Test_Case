@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <title>
+            {% block title %}
+                {{ title }}
+            {% endblock title %}
+        </title>
+    </head>
+    <body>
+        {% block welcome %}
+        <h1>
+            Опросники
+        </h1>
+        {% endblock welcome %}
+        <div class="body_text">{% block content %} {% endblock content %}</div>
+    </body>
+</html>

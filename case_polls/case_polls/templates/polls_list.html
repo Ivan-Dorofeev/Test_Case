@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %} Список опросов {% endblock title %}
+
+{% block content %}
+    {% if polls_list %}
+        {% for poll in polls_list %}
+        <h3> <a href="{% url 'polls_list' poll.id %}" target="_blank" > {{ poll.title }} </h3>
+        {% endfor %}
+    {% else %}
+        <p> Нет опросов </p>
+    {% endif %}
+{% endblock content %}

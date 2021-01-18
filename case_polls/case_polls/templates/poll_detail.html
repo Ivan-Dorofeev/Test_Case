@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %} Описание опроса {% endblock title %}
+
+{% block welcome.super %} {% endblock welcome.super %}
+
+{% block content %}
+    {% if poll_detail %}
+        {% for poll in poll_detail %}
+        <h3>{{ poll.title }}</h3>
+        <ul>
+            <p>number_poll_id: {{ number_poll_id }}</p>
+            <p>Дата начала: {{ poll.date_start }}</p>
+            <p>Дата окончания: {{ poll.date_finish }}</p>
+            <p>Описание: {{ poll.description }}</p>
+            <p>Ответы:
+                {% for answers in poll.answers %}
+                    {{ answers }}
+                {% endfor %}</p>
+        </ul>
+        {% endfor %}
+    {% else %}
+        <p>  Нет опросов </p>
+    {% endif %}
+{% endblock content %}
