@@ -1,11 +1,9 @@
 from django.db import models
 
 
-# После создания поле "дата старта" у опроса менять нельзя
-# - добавление/изменение/удаление вопросов в опросе.??
-
-
 class Polls(models.Model):
+    """Опросник"""
+
     title = models.CharField("Название опроса", max_length=30, db_index=True)
     description = models.CharField("Описание", max_length=300, default="")
     date_start = models.DateTimeField("Дата старта", auto_now=True)
@@ -22,6 +20,7 @@ class Polls(models.Model):
 
 
 class PollAnswers(models.Model):
+    """Готовые ответы на вопросы"""
     answer = models.CharField(max_length=100)
 
     class Meta:
