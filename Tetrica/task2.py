@@ -9,16 +9,12 @@
 #  А: 642
 # Б: 412
 # В:....
-
+from bs4 import BeautifulSoup
 from collections import Counter
 from urllib.parse import urljoin
-
-from lxml import *
 import requests
-from bs4 import BeautifulSoup
 
 first = 'https://ru.wikipedia.org/w/index.php?title=%D0%9A%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D1%8F:%D0%96%D0%B8%D0%B2%D0%BE%D1%82%D0%BD%D1%8B%D0%B5_%D0%BF%D0%BE_%D0%B0%D0%BB%D1%84%D0%B0%D0%B2%D0%B8%D1%82%D1%83'
-
 animals = []
 
 
@@ -46,7 +42,7 @@ def parsing_animals(url):
 
 
 def parsing_next_page(url):
-    """Находим следующщую страницу на сайте"""
+    """Находим следующую страницу на сайте (страниц с животными около 90)"""
 
     response = requests.get(url)
     if response.status_code == 200:
@@ -66,9 +62,11 @@ while True:
         break
     first = new_url
     print('step', count)
+"""Выбираем первые буквы и делаем отсортированный словарь"""
 counter_animals = Counter(animals)
 sort_counter_animal = sorted(counter_animals)
 list_keys = list(counter_animals.keys())
 list_keys.sort()
+"""Выводим результат"""
 for word in list_keys:
     print(word, ':', counter_animals[word])
