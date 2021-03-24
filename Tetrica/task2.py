@@ -13,6 +13,7 @@ from bs4 import BeautifulSoup
 from collections import Counter
 from urllib.parse import urljoin
 import requests
+from numba import njit
 
 first = 'https://ru.wikipedia.org/w/index.php?title=%D0%9A%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D1%8F:%D0%96%D0%B8%D0%B2%D0%BE%D1%82%D0%BD%D1%8B%D0%B5_%D0%BF%D0%BE_%D0%B0%D0%BB%D1%84%D0%B0%D0%B2%D0%B8%D1%82%D1%83'
 animals = []
@@ -23,7 +24,7 @@ def parsing_animals(url):
 
     response = requests.get(url)
     if response.status_code == 200:
-        html_doc = BeautifulSoup(response.text, 'lxml')
+        html_doc = BeautifulSoup(response.text, features="html.parser")
         links = html_doc.find_all('a')
         write_to_list = False
         for link in links:
@@ -70,3 +71,4 @@ list_keys.sort()
 """Выводим результат"""
 for word in list_keys:
     print(word, ':', counter_animals[word])
+print(sum(list(counter_animals.items())))
