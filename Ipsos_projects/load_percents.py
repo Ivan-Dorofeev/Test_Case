@@ -48,6 +48,7 @@ def write_to_file():
     print(df)
 
 
+
 if __name__ == '__main__':
     update_departmen()
     get_percents()
