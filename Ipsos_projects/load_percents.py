@@ -3,25 +3,22 @@ import sys
 
 import pandas as pd
 
-my_path = sys.argv[1]
-name_sl = {}
-result = {}
-no_name_list = []
-
 
 def update_departmen():
-    # записываем в словарь сотрудников департамента из файла
+    my_path = sys.argv[1]
+    name_sl = {}
+    result = {}
+    no_name_list = []
+
+    # считываем отделы департамента в name_sl
     ex_data = pd.read_excel(os.path.join(my_path, 'name_department.xlsx'))
     names = list(ex_data.to_dict()['name'].values())
     sl = list(ex_data.to_dict()['SL'].values())
     for i in range(0, len(names)):
         name_sl[names[i]] = sl[i]
         result[sl[i]] = 0
-    return name_sl
 
-
-def get_percents():
-    #  вычисляем проценты по каждому сотруднику из файлов и записываем с "result"
+    # Читаем файлы и считаем сумму только тех, кто в наших отделах
     for file in os.listdir(my_path):
         if file.startswith('2021'):
             file_pd_data = pd.read_excel(file, header=None)
@@ -38,18 +35,13 @@ def get_percents():
         result[keys] = str(round(value / sum_value * 100, 2)) + ' %'
     result[' '] = ' '
     result['Нет в списке'] = ', '.join(no_name_list)
-    return result
 
-
-def write_to_file():
-    # записываем в новый файл
+    # итог пишем в Excel файл
     df = pd.DataFrame(data=result, index=['Проценты']).T
     df.to_excel('department_percents.xlsx', sheet_name='Проценты')
     print(df)
-
+    return df
 
 
 if __name__ == '__main__':
     update_departmen()
-    get_percents()
-    write_to_file()
