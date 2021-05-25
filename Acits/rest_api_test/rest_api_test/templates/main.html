@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+</head>
+<body>
+{% if request.user.is_authenticates %}
+    <p>Я главная страница</p>
+{% else %}
+    <p> Вы не зарегистрированный польхователь</p>
+    <a href="../../djauth/templates/login.html"> Войти </a>
+</body>
+</html>
