@@ -4,7 +4,7 @@ import sys
 import pandas as pd
 
 
-def update_departmen():
+def get_percent_by_department():
     my_path = sys.argv[1]
     name_sl = {}
     result = {}
@@ -44,4 +44,4 @@ def update_departmen():
 
 
 if __name__ == '__main__':
-    update_departmen()
+    get_percent_by_department()
