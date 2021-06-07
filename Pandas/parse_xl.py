@@ -9,13 +9,12 @@ soup = BeautifulSoup(res.text, "html.parser")
 
 # table = soup.find("table", {"id": "trailing-returns-table"})
 table = soup.find("table", {"id": "trailing-returns-table"})
-print(table)
-# columns = [i.get_text(strip=True) for i in table.find_all("th")]
-# data = []
-#
-# for tr in table.find("tbody").find_all("tr"):
-#     data.append([td.get_text(strip=True) for td in tr.find_all("td")])
-#
-# df = pd.DataFrame(data, columns=columns)
-#
-# df.to_excel("data.xlsx", index=False)
+columns = [i.get_text(strip=True) for i in table.find_all("th")]
+data = []
+
+for tr in table.find("tbody").find_all("tr"):
+    data.append([td.get_text(strip=True) for td in tr.find_all("td")])
+
+df = pd.DataFrame(data, columns=columns)
+
+df.to_excel("data.xlsx", index=False)
