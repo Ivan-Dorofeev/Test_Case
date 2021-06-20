@@ -32,8 +32,8 @@ def goods(page):
             # находим описание товара
             description_soup = good_page_soup.find_all("p", {'data-link': "text{:productCard.description}"})
             description_soup_re = re.split(r'[><]', str(description_soup))
-            description = description_soup_re[2]
-            goods_dict[counter] = [name, article, description]
+            description = ['Нет описания товар' if description_soup_re[2] == '' else description_soup_re[2]]
+            goods_dict[counter] = [name, article, description[0]]
         else:
             print('Opps, нет такой страницы ТОВАРА')
     for k, v in goods_dict.items():
@@ -53,7 +53,7 @@ def category(page):
 
 def parser(url):
     """Проверяем страницу и запускаем парсер"""
-    response = requests.get(url1)
+    response = requests.get(url)
     if response.status_code == 200:
         html_page = BeautifulSoup(response.text, 'html.parser')
         category(html_page)
@@ -63,4 +63,4 @@ def parser(url):
 
 
 if __name__ == '__main__':
-    parser(url1)
+    parser(url3)
