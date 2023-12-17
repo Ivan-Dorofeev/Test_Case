@@ -1,10 +1,7 @@
 # Сайт недвижимости
 
 Тестовый сайт на Flask с фильтрацией
-
-
-https://github.com/Ivan-Dorofeev/Test_Case/assets/58893102/fba8a6a6-0139-4869-85e8-70e533d7a894
-
+![real_estate](https://github.com/Ivan-Dorofeev/Test_Case/assets/58893102/06cb4cec-328d-4684-bd6c-ecc1ee6f8233)
 
 
 ### Как запустить
