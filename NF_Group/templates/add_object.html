@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Добавить новый объект{% endblock %}
+{% block content %}
+    <p><a href="/">Назад</a></p>
+    <h2>Добавить новый объект </h2>
+
+    <form method="post">
+        <label for="title">Название</label><br>
+        <input type="text" name="name" placeholder="name"><br><br>
+        <label for="title">Адрес</label><br>
+        <input type="text" name="address" placeholder="address"><br><br>
+        <label for="title">Этаж</label><br>
+        <input type="text" name="floor" placeholder="floor"><br><br>
+        <label for="title">Площадь</label><br>
+        <input type="text" name="area" placeholder="area"><br><br>
+        <label for="title">Тип</label><br>
+        <select class="form-control" name="obj_type">
+            {% for t in obj_types %}
+                {% if t == "Квартира" %}
+                    <option selected value="{{ t.0 }}">{{ t.0 }}</option>
+                {% else %}
+                    <option value="{{ t.0 }}">{{ t.0 }}</option>
+                {% endif %}
+            {% endfor %}
+        </select><br><br>
+        <label for="title">Метро рядом</label><br>
+            {% for m in metros %}
+                <p><input type="checkbox" name="metro" value="{{ m }}"/> {{ m }}</p>
+            {% endfor %}
+        <br><br>
+        <button type="submit">Добавить</button>
+    </form>
+{% endblock %}

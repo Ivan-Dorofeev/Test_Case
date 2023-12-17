@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Информация по объекту{% endblock %}
+{% block content %}
+    <p><a href="/">Назад</a></p>
+    <h2>Информация по объекту {{ re_obj.0 }} </h2>
+    <p>Название: {{ re_obj.1 }}</p>
+    <p>Адрес: {{ re_obj.2 }}</p>
+    <p>Этаж: {{ re_obj.3 }}</p>
+    <p>Площадь: {{ re_obj.4 }}</p>
+    <p>Тип объекта: {{ re_obj.5 }}</p>
+    <p>Ближайшее метро: {% if not re_obj_metros %} Нет {% endif %}</p>
+    <ul>
+        {% for m in re_obj_metros %}
+            <li>{{ m }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

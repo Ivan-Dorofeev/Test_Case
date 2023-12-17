@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Объекты недвижимости{% endblock %}
+{% block navbar %}
+    <nav class="navbar navbar-default">
+        <p><a href="/add_re_object">Добавить недвижимость</a></p>
+        <p><a href="/add_metro">Добавить метро</a></p>
+    </nav>
+{% endblock %}
+{% block content %}
+    <p>
+        <form method="post">
+            <input type="number" name="area" {% if s_area %}placeholder="{{s_area}}"{% else %}placeholder="Площадь"{% endif %}>
+            <input type="number" name="floor"{% if s_floor %}placeholder="{{s_floor}}"{% else %}placeholder="Этаж"{% endif %}>
+            <input type="text" name="metro" {% if s_metro %}placeholder="{{s_metro}}"{% else %}placeholder="Станция метро"{% endif %}>
+        <button type="submit">Искать</button>
+        </form>
+    </p>
+    <h2>Объекты недвижимости</h2>
+    {% if all_objects%}
+        <ul>
+            {% for re_obj in all_objects %}
+                <li><a href="object_detail/{{ re_obj.0 }}">{{ re_obj.1 }}</a></li><br>
+            {% endfor %}
+        </ul>
+    {% else %}
+        Пока нет объектов
+    {% endif %}
+{% endblock %}

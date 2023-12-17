@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Добавить новый объект{% endblock %}
+{% block content %}
+    <p><a href="/">Назад</a></p>
+    <h2>Добавить новый объект </h2>
+    {% if error_msg %}
+        <p style="color: #9C1A1C">{{ error_msg }}</p>
+    {% endif %}
+    <form method="post">
+        <label for="title">Название</label><br>
+        <input type="text" name="name" placeholder="name" value="{{ request.form['name'] }}"><br><br>
+        <button type="submit">Добавить</button><br><br>
+    </form>
+    {% if all_metros %}
+        <h4>Список созданных метро:</h4>
+        <ul>
+            {% for m in all_metros %}
+                <li>{{ m }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
