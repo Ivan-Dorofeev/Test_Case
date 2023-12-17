@@ -1,5 +1,4 @@
 from flask import Flask, render_template, redirect, url_for, request
-from flask_bootstrap import Bootstrap
 from dotenv import load_dotenv
 
 from db_func import db_all_metros, db_all_re_objects, db_add_metro, db_add_re_object, db_re_objects_by_id, \
@@ -8,7 +7,6 @@ from db_func import db_all_metros, db_all_re_objects, db_add_metro, db_add_re_ob
 load_dotenv()
 
 app = Flask(__name__)
-bootstrap = Bootstrap(app)
 
 
 @app.route("/", methods=["GET", "POST"])
