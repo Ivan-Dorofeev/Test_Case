@@ -2,7 +2,7 @@
 
 Тестовый сайт на Flask с фильтрацией
 
-<img width="75%" alt="image" src="https://github.com/Ivan-Dorofeev/Test_Case/assets/58893102/06cb4cec-328d-4684-bd6c-ecc1ee6f8233">
+<img width="50%" alt="image" src="https://github.com/Ivan-Dorofeev/Test_Case/assets/58893102/06cb4cec-328d-4684-bd6c-ecc1ee6f8233">
 
 ### Как запустить
 
