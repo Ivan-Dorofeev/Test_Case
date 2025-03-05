@@ -31,6 +31,3 @@ python3 site.py
 
 Файл css расположен тут, если нужны правки стилей:
 `/static/css/style.css`
-
-Ссылка на тестовую БД с добавленными объектами недвижимости: 
-`postgres://brneimtr:yHY3ao1BLzBOyvkOZ3GfSQi9Z7-WJkGK@ella.db.elephantsql.com/brneimtr`
