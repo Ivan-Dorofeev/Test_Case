@@ -1,7 +1,7 @@
 # Решаем reCaptcha и вводим данные на сайте
 
 
-<img width="50%" alt="image" src="https://github.com/Ivan-Dorofeev/Test_Case/assets/58893102/06cb4cec-328d-4684-bd6c-ecc1ee6f8233">
+<img width="50%" alt="image" src="https://github.com/user-attachments/assets/f34bb2d9-8175-4da3-b9e1-e38184b70710">
 
 ### Как запустить
 
