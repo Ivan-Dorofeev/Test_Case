@@ -1,0 +1,95 @@
+version: '3.12'
+
+services:
+  minio-bp:
+    image: minio/minio:latest
+    container_name: minio-bp
+    ports:
+      - "9990:9000"  # API
+      - "9991:9001"  # Console
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin123}
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  db-bp:
+    image: postgres:13
+    container_name: db-bp
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-bp_db}
+      POSTGRES_USER: ${POSTGRES_USER:-bp_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-bp_password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5232:5432"
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-bp_user} -d ${POSTGRES_DB:-bp_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis-bp:
+    image: redis:7-alpine
+    container_name: redis-bp
+    ports:
+      - "61921:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    restart: unless-stopped
+
+  fastapi-bp:
+    container_name: fastapi-bp
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8000"
+    environment:
+      MINIO_ENDPOINT: http://minio-bp:9000
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin123}
+      MINIO_BUCKET_NAME: ${MINIO_BUCKET_NAME:-documents}
+      MINIO_SECURE: "false"
+      DATABASE_URL: ${DATABASE_URL}
+      REDIS_URL: redis://redis-bp:6379/0
+    depends_on:
+      db-bp:
+        condition: service_healthy
+      redis-bp:
+        condition: service_healthy
+      minio-bp:
+        condition: service_healthy
+    networks:
+      - app-network
+    restart: unless-stopped
+    volumes:
+      - .:/app
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:
+  minio_data:
